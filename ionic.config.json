@@ -1,0 +1,7 @@
+{
+  "name": "net-speed-meter",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
