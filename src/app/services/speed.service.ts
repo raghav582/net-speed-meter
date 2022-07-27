@@ -20,7 +20,7 @@ export class SpeedService {
     return this.http.get(link);
   }
 
-  upload(link: any) {
-    return this.http.get(link);
+  upload(link: any, data: any) {
+    return this.http.post(link, data);
   }
 }

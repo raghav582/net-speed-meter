@@ -6,10 +6,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+<ion-content [fullscreen]="true" color="dark">
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-title size="large">Net Speed Meter</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -17,10 +17,15 @@
     <ion-grid>
       <ion-row>
         <ion-col size="12">
-          <strong>Downlad: {{downloadSpeed}}</strong>
+          <strong>Download: {{downloadSpeed}}</strong>
+          <ion-spinner name="crescent" color="light" *ngIf="isDownloadSpeed"></ion-spinner>
         </ion-col>
         <ion-col size="12">
-          <ion-button shape="round" size="large" (click)="start()">Start</ion-button>
+          <strong>Upload: {{uploadSpeed}}</strong>
+          <ion-spinner name="crescent" color="light" *ngIf="isUploadSpeed"></ion-spinner>
+        </ion-col>
+        <ion-col size="12">
+          <ion-button shape="round" size="large" (click)="start()" [disabled]="isDownloadSpeed || isUploadSpeed">Start</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
