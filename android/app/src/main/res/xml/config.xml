@@ -14,9 +14,17 @@
     <param name="android-package" value="de.appplant.cordova.plugin.localnotification.LocalNotification"/>
   </feature>
 
+  <feature name="NetworkStatus">
+    <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager"/>
+  </feature>
+
   <feature name="StatusBar">
     <param name="android-package" value="org.apache.cordova.statusbar.StatusBar"/>
     <param name="onload" value="true"/>
+  </feature>
+
+  <feature name="Toast">
+    <param name="android-package" value="nl.xservices.plugins.Toast"/>
   </feature>
 
   

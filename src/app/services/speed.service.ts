@@ -1,26 +1,45 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { basepath, downlod_five_hundred_kb, downlod_five_kb, downlod_five_mb, downlod_hundred_kb, downlod_one_kb, downlod_one_mb, ping, upload } from '../constant/api.urls';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpeedService {
 
-  url: string = 'https://locate.measurementlab.net/v2/nearest/ndt/ndt7';
-  
   constructor(
     private http: HttpClient
   ) { }
 
-  getData() {
-    return this.http.get(this.url);
+  ping() {
+    return this.http.get(ping);
   }
 
-  download(link: any) {
-    return this.http.get(link);
+  downloadOneKb() {
+    return this.http.get(basepath + downlod_one_kb);
   }
 
-  upload(link: any, data: any) {
-    return this.http.post(link, data);
+  downloadFiveKb() {
+    return this.http.get(basepath + downlod_five_kb);
+  }
+
+  downloadHundredKb() {
+    return this.http.get(basepath + downlod_hundred_kb);
+  }
+
+  downloadFiveHundredKb() {
+    return this.http.get(basepath + downlod_five_hundred_kb);
+  }
+
+  downloadOneMb() {
+    return this.http.get(basepath + downlod_one_mb);
+  }
+
+  downloadFiveMb() {
+    return this.http.get(basepath + downlod_five_mb);
+  }
+
+  upload(data) {
+    return this.http.post(basepath + upload, data);
   }
 }
