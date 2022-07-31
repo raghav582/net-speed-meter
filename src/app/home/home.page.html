@@ -16,7 +16,7 @@
   </ion-item>
   <div id="container">
     <ion-grid>
-      <ion-row>
+      <ion-row *ngIf="isNetworkConnected">
         <ion-col size="12" *ngIf="isCalc">
           <div>{{speed}} MB/s</div>
         </ion-col>
@@ -24,8 +24,10 @@
           <strong>Your Speed is</strong>
           <h6>{{averageSpeed}}</h6>
         </ion-col>
-        <ion-col size="12" *ngIf="!isNetworkConnected">
-          <strong>Please check you internet.</strong>
+      </ion-row>
+      <ion-row *ngIf="!isNetworkConnected">
+        <ion-col size="12">
+          <strong id="error">Please check you internet.</strong>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -34,7 +36,7 @@
 
 <ion-footer>
   <ion-toolbar color="custom">
-    <ion-button shape="round" size="large" expand="block" (click)="start()" [disabled]="isCalc">Start
+    <ion-button shape="round" size="large" expand="block" (click)="start()" [disabled]="isCalc || !isNetworkConnected">Start
     </ion-button>
   </ion-toolbar>
 </ion-footer>

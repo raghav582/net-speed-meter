@@ -4,6 +4,8 @@ import { SpeedService } from '../services/speed.service';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
 import { Toast } from '@awesome-cordova-plugins/toast/ngx';
 import { Platform } from '@ionic/angular';
+import { fromEvent, merge, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -37,26 +39,29 @@ export class HomePage {
 
   watchNetwork() {
     console.log("watchNetwork")
-    document.addEventListener('online', () => console.log('Online!'), false);
-    document.addEventListener('offline', () => console.log('Online!'), false);
-    this.network.onChange().subscribe(() => {
-      console.log("Network change");
-    })
-    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-      this.toast.show("Network disconnected", "2000", "center");
-      alert("Network disconnected")
-      this.isNetworkConnected = false;
-    });
 
-    let connectSubscription = this.network.onConnect().subscribe(() => {
-      this.toast.show("Network connected.", "2000", "center");
-      alert("Network connected")
+    if(navigator.onLine) {
       this.isNetworkConnected = true;
       this.start();
+    } else {
+      this.isNetworkConnected = false;
+    }
+
+    window.addEventListener('online', async (event) => {
+      console.log('online', event);
+      this.isNetworkConnected = true;
+      await new Promise((r) => setTimeout(r, 3000));
+      this.start();
+    });
+
+    window.addEventListener('offline', (event) => {
+      console.log('offline', event);
+      this.isNetworkConnected = false;
     });
   }
 
   async start() {
+    console.log('called start')
     this.isNetworkConnected = true;
     this.isCalc = true;
     this.progress = 0;
