@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
-import { Toast } from '@awesome-cordova-plugins/toast/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,8 +21,7 @@ import { Toast } from '@awesome-cordova-plugins/toast/ngx';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     StatusBar,
-    Network,
-    Toast
+    Network
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
