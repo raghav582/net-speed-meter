@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
 import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 import { Platform } from '@ionic/angular';
@@ -22,7 +23,9 @@ export class HomePage {
     private speedService: SpeedService,
     private platform: Platform,
     private network: Network,
-    private changeDetectRef: ChangeDetectorRef
+    private changeDetectRef: ChangeDetectorRef,
+    private router: Router,
+    private ngZone: NgZone
   ) { }
 
   ngOnInit() {
@@ -48,7 +51,6 @@ export class HomePage {
 
     this.network.onConnect().subscribe(async () => {
       this.isNetworkConnected = true;
-      this.refresh();
       this.start();
     });
 
@@ -59,20 +61,30 @@ export class HomePage {
   }
 
   async start() {
-    this.isNetworkConnected = true;
     this.isCalc = true;
+    this.refresh();
     this.progress = 0;
     var totalSpeed = 0;
 
+    await this.speedService.ping().toPromise().then((res) => {
+      console.log(res);
+    }, (err) => {
+      console.log(err);
+    });
+
     for (let i = 0; i < 100; i++) {
-      if(this.isNetworkConnected) {
-        this.progress += 0.01;
-        const startTime = Date.now();
-        let res = await this.speedService.downloadOneKb().toPromise();
-        const endTime = Date.now();
-        this.speed = (1 * 1000 / (endTime - startTime)).toPrecision(3);
-        totalSpeed += (1 * 1000 / (endTime - startTime));
+      if (!this.isNetworkConnected) {
+        console.log('loop break')
+        break;
       }
+      console.log("i: ", i);
+      this.progress += 0.01;
+      const startTime = Date.now();
+      let res = await this.speedService.downloadOneKb(i).toPromise();
+      const endTime = Date.now();
+      this.speed = (1 * 1000 / (endTime - startTime)).toPrecision(3);
+      totalSpeed += (1 * 1000 / (endTime - startTime));
+      this.refresh();
     }
 
     this.isCalc = false;

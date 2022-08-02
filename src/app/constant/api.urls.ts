@@ -1,7 +1,7 @@
 // export const basepath = "http://localhost:8080/v1/speed/";
-export const basepath = "https://api-netspeedtest.herokuapp.com/v1/speed/";
+export const basepath = "http://api-netspeedtest.herokuapp.com/v1/speed/";
 
-export const ping = "https://api-netspeedtest.herokuapp.com/v1/ping";
+export const ping = "http://api-netspeedtest.herokuapp.com/v1/ping";
 export const downlod_one_kb = "download-one-kb";
 export const downlod_five_kb = "download-five-kb";
 export const downlod_hundred_kb = "download-hundred-kb";
