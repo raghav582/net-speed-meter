@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
+import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
 import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 import { Platform } from '@ionic/angular';
 import { SpeedService } from '../services/speed.service';
@@ -24,12 +25,12 @@ export class HomePage {
     private platform: Platform,
     private network: Network,
     private changeDetectRef: ChangeDetectorRef,
-    private router: Router,
-    private ngZone: NgZone
+    private splashScreen: SplashScreen
   ) { }
 
   ngOnInit() {
     this.platform.ready().then(() => {
+      this.splashScreen.hide();
       this.statusBar.hide();
       this.watchNetwork();
     })
