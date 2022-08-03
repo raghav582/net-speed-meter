@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">net-speed-meter</string>
-    <string name="title_activity_main">net-speed-meter</string>
+    <string name="app_name">Net Speed Meter</string>
+    <string name="title_activity_main">Net Speed Meter</string>
     <string name="package_name">io.net.speed.meter</string>
     <string name="custom_url_scheme">io.net.speed.meter</string>
 </resources>
