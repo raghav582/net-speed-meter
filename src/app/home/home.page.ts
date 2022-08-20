@@ -15,6 +15,7 @@ export class HomePage {
 
   isCalc = false;
   isNetworkConnected = true;
+  isConnecting = false;
   averageSpeed: string = 'not calculated. Press start.';
   speed: string;
   progress: number = 0;
@@ -67,11 +68,15 @@ export class HomePage {
     this.progress = 0;
     var totalSpeed = 0;
 
+    this.isConnecting = true;
+    this.refresh();
     await this.speedService.ping().toPromise().then((res) => {
       console.log(res);
     }, (err) => {
       console.log(err);
     });
+    this.isConnecting = false;
+    this.refresh();
 
     for (let i = 0; i < 100; i++) {
       if (!this.isNetworkConnected) {
@@ -83,7 +88,7 @@ export class HomePage {
       const startTime = Date.now();
       let res = await this.speedService.downloadOneKb(i).toPromise();
       const endTime = Date.now();
-      this.speed = (1 * 1000 / (endTime - startTime)).toPrecision(3);
+      this.speed = (1 * 1000 / (endTime - startTime)).toPrecision(3) + ' MB/s';
       totalSpeed += (1 * 1000 / (endTime - startTime));
       this.refresh();
     }
